@@ -1,0 +1,331 @@
+npcs:
+  4be310e9-8d06-4fb3-9ae3-ca0bd4c9693e:
+    name: rtp
+    creator: 2b24af35-6941-4fa6-9b87-8ac0e85afe00
+    displayName: '&#38bdf8ʀᴀɴᴅᴏᴍ ᴛᴇʟᴇᴘᴏʀᴛ'
+    type: PLAYER
+    location:
+      world: spawn
+      x: -20.5
+      y: 64.0
+      z: 15.5
+      yaw: -133.05275
+      pitch: -1.2000359
+    showInTab: false
+    spawnEntity: true
+    collidable: true
+    glowing: false
+    glowingColor: white
+    turnToPlayer: false
+    turnToPlayerDistance: -1
+    interactionCooldown: 0.0
+    scale: 1.0
+    visibility_distance: -1
+    visibility: ALL
+    skin:
+      mirrorSkin: false
+      identifier: rtp
+      variant: AUTO
+    actions:
+      ANY_CLICK:
+        '1':
+          action: player_command
+          value: rtp
+
+  d94cc7ff-2adf-4c7d-b8ac-6a127490c52a:
+    name: duels
+    creator: 2b24af35-6941-4fa6-9b87-8ac0e85afe00
+    displayName: '&#ef4444ᴅᴜᴇʟѕ'
+    type: PLAYER
+    location:
+      world: spawn
+      x: -71.5
+      y: 71.0
+      z: 23.5
+      yaw: -90.152885
+      pitch: -0.9000135
+    showInTab: false
+    spawnEntity: true
+    collidable: true
+    glowing: false
+    glowingColor: white
+    turnToPlayer: false
+    turnToPlayerDistance: -1
+    interactionCooldown: 0.0
+    scale: 1.0
+    visibility_distance: -1
+    visibility: ALL
+    skin:
+      identifier: warrior
+      variant: AUTO
+      mirrorSkin: false
+    actions:
+      ANY_CLICK:
+        '1':
+          action: player_command
+          value: queue
+
+  e6e08a21-c138-42ed-8e97-c0e010d3cc32:
+    name: shop
+    creator: 2b24af35-6941-4fa6-9b87-8ac0e85afe00
+    displayName: '&#22c55eѕᴇʀᴠᴇʀ ѕʜᴏᴘ'
+    type: PLAYER
+    location:
+      world: spawn
+      x: -0.5
+      y: 67.0
+      z: -96.5
+      yaw: -0.30250323
+      pitch: -0.74980223
+    showInTab: false
+    spawnEntity: true
+    collidable: true
+    glowing: false
+    glowingColor: white
+    turnToPlayer: false
+    turnToPlayerDistance: -1
+    interactionCooldown: 0.0
+    scale: 1.0
+    visibility_distance: -1
+    visibility: ALL
+    skin:
+      mirrorSkin: false
+      identifier: Notch
+      variant: AUTO
+    actions:
+      ANY_CLICK:
+        '1':
+          action: player_command
+          value: shop
+
+  8f41c9f1-2f95-4df7-b6d1-3f59de8f9a11:
+    name: ranks
+    creator: 2b24af35-6941-4fa6-9b87-8ac0e85afe00
+    displayName: '&#facc15ʀᴀɴᴋѕ ѕʜᴏᴘ'
+    type: PLAYER
+    location:
+      world: spawn
+      x: 3.5
+      y: 67.0
+      z: -96.5
+      yaw: 0.0
+      pitch: 0.0
+    showInTab: false
+    spawnEntity: true
+    collidable: true
+    glowing: true
+    glowingColor: yellow
+    turnToPlayer: true
+    turnToPlayerDistance: 8
+    interactionCooldown: 0.5
+    scale: 1.0
+    visibility_distance: -1
+    visibility: ALL
+    skin:
+      mirrorSkin: false
+      identifier: Dream
+      variant: AUTO
+    actions:
+      ANY_CLICK:
+        '1':
+          action: player_command
+          value: ranks
+
+
+  2a7f0d42-bc9a-44d3-8f6d-34d22e85a601:
+    name: webshop
+    creator: 2b24af35-6941-4fa6-9b87-8ac0e85afe00
+    displayName: '&#38bdf8ᴡᴇʙѕʜᴏᴘ'
+    type: PLAYER
+    location:
+      world: spawn
+      x: 7.5
+      y: 67.0
+      z: -96.5
+      yaw: 0.0
+      pitch: 0.0
+    showInTab: false
+    spawnEntity: true
+    collidable: true
+    glowing: true
+    glowingColor: aqua
+    turnToPlayer: true
+    turnToPlayerDistance: 8
+    interactionCooldown: 1.0
+    scale: 1.0
+    visibility_distance: -1
+    visibility: ALL
+    skin:
+      mirrorSkin: false
+      identifier: DanTDM
+      variant: AUTO
+    actions:
+      ANY_CLICK:
+        '1':
+          action: player_command
+          value: webshop
+
+  49d9f47e-84c9-4b39-a24d-62dc8b7d0f13:
+    name: specialshop
+    creator: 2b24af35-6941-4fa6-9b87-8ac0e85afe00
+    displayName: '&#A303F9ѕᴘᴇᴄɪᴀʟ ѕʜᴏᴘ'
+    type: PLAYER
+    location:
+      world: spawn
+      x: -4.5
+      y: 67.0
+      z: -96.5
+      yaw: 0.0
+      pitch: 0.0
+    showInTab: false
+    spawnEntity: true
+    collidable: true
+    glowing: true
+    glowingColor: purple
+    turnToPlayer: true
+    turnToPlayerDistance: 8
+    interactionCooldown: 0.5
+    scale: 1.0
+    visibility_distance: -1
+    visibility: ALL
+    skin:
+      mirrorSkin: false
+      identifier: Technoblade
+      variant: AUTO
+    actions:
+      ANY_CLICK:
+        '1':
+          action: player_command
+          value: shop special
+
+  6cbb84ce-21af-4d6f-8f52-1d417e9c7a91:
+    name: dailyfreecrate
+    creator: 2b24af35-6941-4fa6-9b87-8ac0e85afe00
+    displayName: '&#22c55eɢʀᴀᴛɪѕ ᴅᴀɢᴇʟɪᴊᴋѕᴇ ᴄʀᴀᴛᴇ'
+    type: PLAYER
+    location:
+      world: spawn
+      x: -8.5
+      y: 67.0
+      z: -96.5
+      yaw: 0.0
+      pitch: 0.0
+    showInTab: false
+    spawnEntity: true
+    collidable: true
+    glowing: true
+    glowingColor: green
+    turnToPlayer: true
+    turnToPlayerDistance: 8
+    interactionCooldown: 1.0
+    scale: 1.0
+    visibility_distance: -1
+    visibility: ALL
+    skin:
+      mirrorSkin: false
+      identifier: MrBeast
+      variant: AUTO
+    actions:
+      ANY_CLICK:
+        '1':
+          action: player_command
+          value: dailycrate
+
+  b9fc1acd-45f6-4979-9640-4fa02a86bbb0:
+    name: discord
+    creator: 2b24af35-6941-4fa6-9b87-8ac0e85afe00
+    displayName: '&#5865F2ᴅɪѕᴄᴏʀᴅ'
+    type: PLAYER
+    location:
+      world: spawn
+      x: -22.5
+      y: 63.0
+      z: 5.5
+      yaw: -90.75309
+      pitch: 0.60011536
+    showInTab: false
+    spawnEntity: true
+    collidable: true
+    glowing: false
+    glowingColor: white
+    turnToPlayer: false
+    turnToPlayerDistance: -1
+    interactionCooldown: 0.0
+    scale: 1.0
+    visibility_distance: -1
+    visibility: ALL
+    skin:
+      mirrorSkin: false
+      identifier: Berkcord
+      variant: AUTO
+    actions:
+      ANY_CLICK:
+        '1':
+          action: player_command
+          value: discord
+
+  edc4b1bb-af51-4ffb-b8a5-767dcb27fa39:
+    name: billford
+    creator: 2b24af35-6941-4fa6-9b87-8ac0e85afe00
+    displayName: '&#22c55eʙɪʟʟꜰᴏʀᴅ'
+    type: PLAYER
+    location:
+      world: spawn
+      x: -21.5
+      y: 63.0
+      z: -5.5
+      yaw: -91.95309
+      pitch: -5.5498796
+    showInTab: false
+    spawnEntity: true
+    collidable: true
+    glowing: false
+    glowingColor: white
+    turnToPlayer: false
+    turnToPlayerDistance: -1
+    interactionCooldown: 0.0
+    scale: 1.0
+    visibility_distance: -1
+    visibility: ALL
+    skin:
+      mirrorSkin: false
+      identifier: shrek
+      variant: AUTO
+    actions:
+      ANY_CLICK:
+        '1':
+          action: player_command
+          value: billford
+
+  14b182b6-978f-43c6-9fe5-bcc21d7e8d30:
+    name: auction
+    creator: 2b24af35-6941-4fa6-9b87-8ac0e85afe00
+    displayName: '&#f59e0bᴠᴇɪʟɪɴɢ'
+    type: PLAYER
+    location:
+      world: spawn
+      x: -72.5
+      y: 70.0
+      z: 66.5
+      yaw: -89.55311
+      pitch: -1.7998488
+    showInTab: false
+    spawnEntity: true
+    collidable: true
+    glowing: false
+    glowingColor: white
+    turnToPlayer: false
+    turnToPlayerDistance: -1
+    interactionCooldown: 0.0
+    scale: 1.0
+    visibility_distance: -1
+    visibility: ALL
+    skin:
+      mirrorSkin: false
+      identifier: CaptainSparklez
+      variant: AUTO
+    actions:
+      ANY_CLICK:
+        '1':
+          action: player_command
+          value: auction
