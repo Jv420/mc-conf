@@ -1,0 +1,1 @@
+DynathiSMP Minecraft configs repository.
