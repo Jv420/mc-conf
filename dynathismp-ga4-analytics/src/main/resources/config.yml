@@ -1,22 +1,23 @@
 # DynathiGA4Analytics
-# Gebruik GA4 Measurement Protocol.
-# GA4: Admin -> Data Streams -> kies je Web stream -> Measurement Protocol -> Create API Secret
+# Voor Firebase Analytics / Google Analytics app gebruik je GA4 Measurement Protocol.
 
 enabled: false
 
-# Voorbeeld: G-XXXXXXXXXX
+firebase:
+  project-name: "DynathiSMP"
+  analytics-label: "firebase_ga4"
+
+server:
+  id: "dynathismp"
+  name: "DynathiSMP"
+  host: "DynathiSMP.mcsh.io"
+  platform: "mcsh"
+
 measurement-id: "G-XXXXXXXXXX"
-
-# Houd deze geheim. Zet deze repo niet openbaar met je echte secret erin.
 api-secret: "PASTE_YOUR_API_SECRET_HERE"
-
-# EU endpoint is netter voor Nederland/EU.
 use-eu-endpoint: true
+client-id: "dynathismp-mcsh-server"
 
-# Vaste client_id voor server events. Laat zo staan of verander naar eigen servernaam.
-client-id: "dynathismp-server"
-
-# Zet GEEN speler-IP of persoonlijke data naar Google Analytics.
 privacy:
   hash-player-uuid: true
   send-player-name: false
@@ -33,5 +34,4 @@ tracking:
   online-count-task: true
   online-count-minutes: 5
 
-# Debug stuurt extra logs naar console.
 debug: false
