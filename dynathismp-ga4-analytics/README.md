@@ -2,6 +2,32 @@
 
 Paper plugin voor DynathiSMP waarmee je server-statistieken naar Google Analytics 4 kunt sturen via GA4 Measurement Protocol.
 
+## Bouwen met Maven
+
+Gebruik Java 21.
+
+```bash
+mvn clean package
+```
+
+De jar komt daarna hier:
+
+```text
+target/DynathiGA4Analytics-1.0.0.jar
+```
+
+Zet deze jar in je servermap:
+
+```text
+plugins/DynathiGA4Analytics-1.0.0.jar
+```
+
+Daarna server starten en de config invullen in:
+
+```text
+plugins/DynathiGA4Analytics/config.yml
+```
+
 ## Events
 
 Standaard meet de plugin:
@@ -34,24 +60,6 @@ enabled: true
 measurement-id: "G-XXXXXXXXXX"
 api-secret: "vul-hier-je-eigen-waarde-in"
 ```
-
-## Bouwen
-
-Gebruik Java 21.
-
-Linux/macOS:
-
-```bash
-./gradlew build
-```
-
-Windows:
-
-```bat
-gradlew.bat build
-```
-
-De jar komt in build/libs/ en kan daarna in je plugins map.
 
 ## Privacy advies
 
