@@ -1,0 +1,16 @@
+name: DynathiGA4Analytics
+version: 1.0.0
+main: nl.dynathismp.analytics.DynathiGA4Analytics
+api-version: '1.21'
+author: Jv420
+website: https://dynathismp.nl
+description: Sends safe DynathiSMP server statistics to Google Analytics 4 using Measurement Protocol.
+commands:
+  dynathiga:
+    description: Dynathi GA4 Analytics admin command
+    usage: /dynathiga reload
+    permission: dynathiga.admin
+permissions:
+  dynathiga.admin:
+    description: Allows reloading DynathiGA4Analytics
+    default: op
