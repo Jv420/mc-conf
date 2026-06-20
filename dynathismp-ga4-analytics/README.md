@@ -1,6 +1,51 @@
 # DynathiGA4Analytics
 
-Paper plugin voor DynathiSMP waarmee je server-statistieken naar Google Analytics 4 kunt sturen via GA4 Measurement Protocol.
+Paper plugin voor DynathiSMP waarmee je Minecraft statistieken naar je Firebase Analytics en Google Analytics app kunt sturen.
+
+Ingesteld voor DynathiSMP.mcsh.io en Maven.
+
+## Wat kan deze plugin?
+
+Standaard meet hij:
+
+- mc_server_start
+- mc_server_stop
+- mc_player_join
+- mc_player_quit
+- mc_player_death
+- mc_online_count elke 5 minuten
+
+Optioneel, standaard uit:
+
+- mc_player_command, alleen de command naam
+- mc_player_chat, alleen berichtlengte
+
+## Data per event
+
+Bij elk event stuurt hij mee:
+
+```text
+firebase_project: DynathiSMP
+analytics_source: firebase_ga4
+server_id: dynathismp
+server_name: DynathiSMP
+server_host: DynathiSMP.mcsh.io
+server_platform: mcsh
+minecraft_version
+online_players
+max_players
+```
+
+Bij speler-events ook:
+
+```text
+player_id: gehashte UUID
+game_mode
+client_type: java of bedrock
+world
+```
+
+Standaard stuurt hij geen IP, geen chattekst en geen spelernaam.
 
 ## Bouwen met Maven
 
@@ -28,47 +73,20 @@ Daarna server starten en de config invullen in:
 plugins/DynathiGA4Analytics/config.yml
 ```
 
-## Events
+## Firebase / Google Analytics instellen
 
-Standaard meet de plugin:
-
-- server_start
-- server_stop
-- player_join
-- player_quit
-- player_death
-- online_count elke 5 minuten
-
-De plugin stuurt standaard geen speler-IP, geen chattekst en geen spelernaam. De speler UUID wordt standaard gehasht.
-
-## GA4 instellen
-
-1. Open Google Analytics 4.
-2. Ga naar Admin.
-3. Ga naar Data Streams.
-4. Kies je Web stream.
-5. Kopieer je Measurement ID, bijvoorbeeld G-XXXXXXXXXX.
-6. Maak bij Measurement Protocol een API secret aan.
-7. Zet deze waarden lokaal in plugins/DynathiGA4Analytics/config.yml.
-8. Zet enabled op true.
-9. Herstart de server of gebruik /dynathiga reload.
-
-Voorbeeld config lokaal op je server:
-
-```yml
-enabled: true
-measurement-id: "G-XXXXXXXXXX"
-api-secret: "vul-hier-je-eigen-waarde-in"
-```
-
-## Privacy advies
-
-Voor Nederland/EU:
-
-- laat use-eu-endpoint op true staan
-- laat send-player-name op false staan
-- laat hash-player-uuid op true staan
-- zet je echte API secret niet openbaar in GitHub
+1. Open Firebase Console.
+2. Open jouw DynathiSMP project.
+3. Ga naar Analytics.
+4. Open de gekoppelde Google Analytics property.
+5. Ga naar Admin.
+6. Ga naar Data Streams.
+7. Kies of maak een Web stream.
+8. Kopieer je Measurement ID, bijvoorbeeld G-XXXXXXXXXX.
+9. Maak een Measurement Protocol sleutel aan.
+10. Vul deze lokaal in de plugin config in.
+11. Zet enabled op true.
+12. Herstart de server of gebruik /dynathiga reload.
 
 ## Command
 
