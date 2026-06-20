@@ -150,7 +150,8 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
         return p;
     }
 
-    private Map<String, Object> saleParams(String playerName) {
+    private Map<String, Object> paramsForPlayerName(String playerName) {
+        if (playerName == null || playerName.equalsIgnoreCase("none") || playerName.equals("-")) return baseParams();
         Player online = Bukkit.getPlayerExact(playerName);
         if (online != null) return playerParams(online);
         Map<String, Object> p = baseParams();
@@ -163,7 +164,7 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
 
     private void sendSale(String playerName, String productId, double value, String currency, String orderId) {
         if (!getConfig().getBoolean("tracking.webshop-sales", true)) return;
-        Map<String, Object> p = saleParams(playerName);
+        Map<String, Object> p = paramsForPlayerName(playerName);
         p.put("webshop_name", webshopName);
         p.put("webshop_url", webshopUrl);
         p.put("product_id", productId);
@@ -173,6 +174,36 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
         p.put("currency", currency == null || currency.isBlank() ? webshopCurrency : currency.toUpperCase());
         p.put("order_id", orderId == null || orderId.isBlank() ? "manual" : orderId);
         sendEvent("mc_webshop_sale", p);
+    }
+
+    private void sendCustomEvent(String eventName, String playerName, String[] args, int startIndex) {
+        Map<String, Object> p = paramsForPlayerName(playerName);
+        for (int i = startIndex; i < args.length; i++) {
+            String part = args[i];
+            int split = part.indexOf('=');
+            if (split <= 0 || split >= part.length() - 1) continue;
+            String key = safeKey(part.substring(0, split));
+            String value = part.substring(split + 1);
+            p.put(key, parseValue(value));
+        }
+        sendEvent(safeEvent(eventName), p);
+    }
+
+    private Object parseValue(String value) {
+        if (value.equalsIgnoreCase("true")) return true;
+        if (value.equalsIgnoreCase("false")) return false;
+        try { return Double.parseDouble(value.replace(',', '.')); } catch (Exception ignored) { return value.replace('_', ' '); }
+    }
+
+    private String safeEvent(String input) {
+        String s = input.toLowerCase().replaceAll("[^a-z0-9_]+", "_");
+        if (!s.startsWith("mc_")) s = "mc_" + s;
+        return s.length() > 40 ? s.substring(0, 40) : s;
+    }
+
+    private String safeKey(String input) {
+        String s = input.toLowerCase().replaceAll("[^a-z0-9_]+", "_");
+        return s.length() > 40 ? s.substring(0, 40) : s;
     }
 
     private boolean isLikelyBedrock(Player p) { String n = p.getName(); return n.startsWith(".") || n.startsWith("*") || n.contains(" "); }
@@ -187,9 +218,7 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
         }).exceptionally(err -> { getLogger().warning("GA4/Firebase event fout: " + name + " - " + err.getMessage()); return null; });
     }
 
-    private String buildPayload(String name, Map<String, Object> params) {
-        return "{\"client_id\":\"" + jsonEscape(clientId) + "\",\"non_personalized_ads\":true,\"events\":[{\"name\":\"" + jsonEscape(name) + "\",\"params\":" + mapToJson(params) + "}]}";
-    }
+    private String buildPayload(String name, Map<String, Object> params) { return "{\"client_id\":\"" + jsonEscape(clientId) + "\",\"non_personalized_ads\":true,\"events\":[{\"name\":\"" + jsonEscape(name) + "\",\"params\":" + mapToJson(params) + "}]}"; }
 
     private String mapToJson(Map<String, Object> params) {
         StringBuilder sb = new StringBuilder("{"); boolean first = true;
@@ -203,12 +232,7 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
     }
 
     private String sha256(UUID uuid) { return sha256Text(uuid.toString()).substring(0, 32); }
-
-    private String sha256Text(String text) {
-        try { MessageDigest d = MessageDigest.getInstance("SHA-256"); byte[] h = d.digest(text.getBytes(StandardCharsets.UTF_8)); StringBuilder x = new StringBuilder(); for (byte b : h) x.append(String.format("%02x", b)); return x.toString(); }
-        catch (Exception e) { return "unknown00000000000000000000000000"; }
-    }
-
+    private String sha256Text(String text) { try { MessageDigest d = MessageDigest.getInstance("SHA-256"); byte[] h = d.digest(text.getBytes(StandardCharsets.UTF_8)); StringBuilder x = new StringBuilder(); for (byte b : h) x.append(String.format("%02x", b)); return x.toString(); } catch (Exception e) { return "unknown00000000000000000000000000"; } }
     private String jsonEscape(String s) { return s.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t"); }
     private String urlEscape(String s) { return s.replace(" ", "%20"); }
 
@@ -220,8 +244,14 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
         }
         if (command.getName().equalsIgnoreCase("dynathisale")) {
             if (args.length < 4) { sender.sendMessage("§cGebruik: /dynathisale <player> <product_id> <price> <currency> [order_id]"); return true; }
-            try { sendSale(args[0], args[1], Double.parseDouble(args[2].replace(',', '.')), args[3], args.length >= 5 ? args[4] : "manual"); sender.sendMessage("§aWebshop sale analytics verzonden."); }
-            catch (NumberFormatException ex) { sender.sendMessage("§cPrice moet een nummer zijn, bijvoorbeeld 4.99"); }
+            try { sendSale(args[0], args[1], Double.parseDouble(args[2].replace(',', '.')), args[3], args.length >= 5 ? args[4] : "manual"); sender.sendMessage("§aSale analytics verzonden."); } catch (NumberFormatException ex) { sender.sendMessage("§cPrice moet een nummer zijn, bijvoorbeeld 4.99"); }
+            return true;
+        }
+        if (command.getName().equalsIgnoreCase("dynathievent")) {
+            if (args.length < 1) { sender.sendMessage("§cGebruik: /dynathievent <event_name> [player] [key=value]..."); return true; }
+            String playerName = args.length >= 2 ? args[1] : "none";
+            sendCustomEvent(args[0], playerName, args, 2);
+            sender.sendMessage("§aAnalytics event verzonden: §e" + safeEvent(args[0]));
             return true;
         }
         return false;
