@@ -4,20 +4,27 @@ main: nl.dynathismp.analytics.DynathiGA4Analytics
 api-version: '1.21'
 author: Jv420
 website: https://dynathismp.nl
-description: Sends safe DynathiSMP server statistics and webshop sales to Firebase GA4.
+description: Sends safe DynathiSMP server statistics and events to Firebase GA4.
 commands:
   dynathiga:
     description: Dynathi GA4 Analytics admin command
     usage: /dynathiga reload
     permission: dynathiga.admin
   dynathisale:
-    description: Sends a DynathiSMP webshop sale event to Firebase GA4
+    description: Sends a DynathiSMP sale event to Firebase GA4
     usage: /dynathisale <player> <product_id> <price> <currency> [order_id]
     permission: dynathiga.sale
+  dynathievent:
+    description: Sends a custom DynathiSMP analytics event to Firebase GA4
+    usage: /dynathievent <event_name> [player] [key=value]...
+    permission: dynathiga.event
 permissions:
   dynathiga.admin:
     description: Allows reloading DynathiGA4Analytics
     default: op
   dynathiga.sale:
-    description: Allows sending webshop sale analytics events
+    description: Allows sending sale analytics events
+    default: op
+  dynathiga.event:
+    description: Allows sending custom analytics events
     default: op
