@@ -16,7 +16,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -43,6 +42,12 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
     private String apiSecret;
     private String endpoint;
     private String clientId;
+    private String firebaseProjectName;
+    private String firebaseAnalyticsLabel;
+    private String serverId;
+    private String serverName;
+    private String serverHost;
+    private String serverPlatform;
 
     @Override
     public void onEnable() {
@@ -55,11 +60,11 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
 
         if (getConfig().getBoolean("tracking.server-start", true)) {
-            sendEvent("server_start", baseParams());
+            sendEvent("mc_server_start", baseParams());
         }
 
         startOnlineTask();
-        getLogger().info("DynathiGA4Analytics enabled. Tracking is " + (analyticsEnabled ? "ON" : "OFF") + ".");
+        getLogger().info("DynathiGA4Analytics enabled for " + serverHost + ". Tracking is " + (analyticsEnabled ? "ON" : "OFF") + ".");
     }
 
     @Override
@@ -70,7 +75,7 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
         }
 
         if (getConfig().getBoolean("tracking.server-stop", true)) {
-            sendEvent("server_stop", baseParams()).join();
+            sendEvent("mc_server_stop", baseParams()).join();
         }
     }
 
@@ -85,7 +90,14 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
         sendWorldName = cfg.getBoolean("privacy.send-world-name", true);
         measurementId = cfg.getString("measurement-id", "G-XXXXXXXXXX").trim();
         apiSecret = cfg.getString("api-secret", "PASTE_YOUR_API_SECRET_HERE").trim();
-        clientId = cfg.getString("client-id", "dynathismp-server").trim();
+        clientId = cfg.getString("client-id", "dynathismp-mcsh-server").trim();
+
+        firebaseProjectName = cfg.getString("firebase.project-name", "DynathiSMP").trim();
+        firebaseAnalyticsLabel = cfg.getString("firebase.analytics-label", "firebase_ga4").trim();
+        serverId = cfg.getString("server.id", "dynathismp").trim();
+        serverName = cfg.getString("server.name", "DynathiSMP").trim();
+        serverHost = cfg.getString("server.host", "DynathiSMP.mcsh.io").trim();
+        serverPlatform = cfg.getString("server.platform", "mcsh").trim();
 
         boolean eu = cfg.getBoolean("use-eu-endpoint", true);
         endpoint = eu ? "https://region1.google-analytics.com/mp/collect" : "https://www.google-analytics.com/mp/collect";
@@ -112,22 +124,20 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
             Map<String, Object> params = baseParams();
             params.put("online_players", Bukkit.getOnlinePlayers().size());
             params.put("max_players", Bukkit.getMaxPlayers());
-            sendEvent("online_count", params);
+            sendEvent("mc_online_count", params);
         }, ticks, ticks);
     }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         if (!getConfig().getBoolean("tracking.player-join", true)) return;
-        Map<String, Object> params = playerParams(event.getPlayer());
-        sendEvent("player_join", params);
+        sendEvent("mc_player_join", playerParams(event.getPlayer()));
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         if (!getConfig().getBoolean("tracking.player-quit", true)) return;
-        Map<String, Object> params = playerParams(event.getPlayer());
-        sendEvent("player_quit", params);
+        sendEvent("mc_player_quit", playerParams(event.getPlayer()));
     }
 
     @EventHandler
@@ -136,7 +146,7 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
         Player player = event.getEntity();
         Map<String, Object> params = playerParams(player);
         params.put("death_cause", player.getLastDamageCause() == null ? "unknown" : player.getLastDamageCause().getCause().name().toLowerCase());
-        sendEvent("player_death", params);
+        sendEvent("mc_player_death", params);
     }
 
     @EventHandler
@@ -146,7 +156,7 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
         String command = raw.split(" ")[0].replace("/", "").toLowerCase();
         Map<String, Object> params = playerParams(event.getPlayer());
         params.put("command", command);
-        sendEvent("player_command", params);
+        sendEvent("mc_player_command", params);
     }
 
     @EventHandler
@@ -154,13 +164,18 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
         if (!getConfig().getBoolean("tracking.player-chat", false)) return;
         Map<String, Object> params = playerParams(event.getPlayer());
         params.put("message_length", event.getMessage() == null ? 0 : event.getMessage().length());
-        sendEvent("player_chat", params);
+        sendEvent("mc_player_chat", params);
     }
 
     private Map<String, Object> baseParams() {
         Map<String, Object> params = new LinkedHashMap<>();
-        params.put("server_name", "DynathiSMP");
-        params.put("server_version", Bukkit.getMinecraftVersion());
+        params.put("firebase_project", firebaseProjectName);
+        params.put("analytics_source", firebaseAnalyticsLabel);
+        params.put("server_id", serverId);
+        params.put("server_name", serverName);
+        params.put("server_host", serverHost);
+        params.put("server_platform", serverPlatform);
+        params.put("minecraft_version", Bukkit.getMinecraftVersion());
         params.put("online_players", Bukkit.getOnlinePlayers().size());
         params.put("max_players", Bukkit.getMaxPlayers());
         params.put("engagement_time_msec", 100);
@@ -172,7 +187,7 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
         Map<String, Object> params = baseParams();
         params.put("player_id", hashUuid ? sha256(player.getUniqueId()) : player.getUniqueId().toString());
         params.put("game_mode", player.getGameMode().name().toLowerCase());
-        params.put("bedrock_or_java", isLikelyBedrock(player) ? "bedrock" : "java");
+        params.put("client_type", isLikelyBedrock(player) ? "bedrock" : "java");
 
         if (sendPlayerName) {
             params.put("player_name", player.getName());
@@ -208,14 +223,14 @@ public final class DynathiGA4Analytics extends JavaPlugin implements Listener {
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.discarding())
                 .thenAccept(response -> {
                     if (debug) {
-                        getLogger().info("GA4 event " + eventName + " -> HTTP " + response.statusCode());
+                        getLogger().info("GA4/Firebase event " + eventName + " -> HTTP " + response.statusCode());
                     }
                     if (response.statusCode() < 200 || response.statusCode() >= 300) {
-                        getLogger().warning("GA4 event mislukt: " + eventName + " HTTP " + response.statusCode());
+                        getLogger().warning("GA4/Firebase event mislukt: " + eventName + " HTTP " + response.statusCode());
                     }
                 })
                 .exceptionally(error -> {
-                    getLogger().warning("GA4 event kon niet verzonden worden: " + eventName + " - " + error.getMessage());
+                    getLogger().warning("GA4/Firebase event kon niet verzonden worden: " + eventName + " - " + error.getMessage());
                     return null;
                 });
     }
