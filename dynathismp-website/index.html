@@ -3,99 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DynathiSMP | Minecraft Economy SMP</title>
-  <meta name="description" content="Join DynathiSMP, een Minecraft Economy SMP met ranks, crates, shops, auctions, RTP, Java en Bedrock support." />
+  <title>DynathiSMP | Premium Minecraft Economy SMP</title>
+  <meta name="description" content="DynathiSMP is een premium Minecraft Economy SMP met ranks, crates, shops, auctions, Java en Bedrock support." />
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
+  <div class="bg-orb orb-a"></div><div class="bg-orb orb-b"></div><div class="grid-bg"></div>
   <header class="nav">
     <a class="brand" href="index.html"><span class="brand-mark">D</span><span>DynathiSMP</span></a>
     <button class="nav-toggle" id="navToggle">☰</button>
     <nav id="navMenu">
-      <a href="index.html">Home</a>
-      <a href="ranks.html">Ranks</a>
-      <a href="crates.html">Crates</a>
-      <a href="features.html">Features</a>
-      <a href="rules.html">Rules</a>
-      <a href="status.html">Status</a>
-      <a class="shop-link" href="https://dynathismp-snowy.vercel.app/">Webshop</a>
+      <a href="index.html">Home</a><a href="ranks.html">Ranks</a><a href="crates.html">Crates</a><a href="features.html">Features</a><a href="rules.html">Rules</a><a href="status.html">Status</a><a class="shop-link" href="https://dynathismp-snowy.vercel.app/">Webshop</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="hero-bg"></div>
+    <section class="shop-hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Java + Bedrock Economy SMP</p>
-          <h1>Welkom bij <span>DynathiSMP</span></h1>
-          <p class="lead">Bouw je basis, verdien miljoenen, open crates, handel met spelers en groei uit tot de rijkste speler van de server.</p>
-          <div class="server-card">
-            <div>
-              <small>Server IP</small>
-              <strong id="serverIp">play.dynathismp.nl</strong>
-            </div>
-            <button class="copy-btn" data-copy="play.dynathismp.nl">Kopieer IP</button>
+          <div class="pill">🟢 DynathiSMP Store Theme</div>
+          <h1>Premium Economy SMP voor <span>Java & Bedrock</span></h1>
+          <p class="lead">Join DynathiSMP, verdien miljoenen, open crates, koop ranks, handel met spelers en bouw jouw eigen empire.</p>
+          <div class="server-box">
+            <div><small>Server IP</small><strong>play.dynathismp.nl</strong></div>
+            <button class="copy-btn" data-copy="play.dynathismp.nl">Kopieer</button>
           </div>
-          <div class="hero-actions">
-            <a class="btn primary" href="https://dynathismp-snowy.vercel.app/">Open Webshop</a>
-            <a class="btn ghost" href="rules.html">Bekijk regels</a>
-          </div>
+          <div class="hero-actions"><a class="btn primary" href="https://dynathismp-snowy.vercel.app/">Ga naar Webshop</a><a class="btn ghost" href="ranks.html">Bekijk Ranks</a></div>
+          <div class="trust-row"><span>⚡ Instant delivery via RCON</span><span>💳 Stripe payments</span><span>📊 Firebase analytics</span></div>
         </div>
-        <div class="hero-panel glass">
-          <div class="status-dot"><span></span> Live Network</div>
-          <h2>DynathiSMP</h2>
-          <ul class="stats-list">
-            <li><span>Java IP</span><strong>play.dynathismp.nl</strong></li>
-            <li><span>Bedrock Port</span><strong>19132</strong></li>
-            <li><span>Game Mode</span><strong>Economy Survival</strong></li>
-            <li><span>Shop</span><strong>Ranks & Crates</strong></li>
-          </ul>
+        <div class="store-panel">
+          <div class="store-top"><span class="live-dot"></span> Store Online</div>
+          <h2>DynathiSMP Webshop</h2>
+          <div class="product-mini vip"><b>VIP Rank</b><span>Starter perks</span></div>
+          <div class="product-mini elite"><b>Elite Rank</b><span>Populair</span></div>
+          <div class="product-mini legend"><b>Legend Rank</b><span>Premium</span></div>
+          <a class="btn full" href="https://dynathismp-snowy.vercel.app/">Open Shop</a>
         </div>
       </div>
     </section>
 
     <section class="container section">
-      <div class="section-title">
-        <p class="eyebrow">Waarom DynathiSMP?</p>
-        <h2>Alles voor een moderne SMP ervaring</h2>
-      </div>
+      <div class="section-title"><p class="eyebrow">Shop categorieën</p><h2>Alles in dezelfde webshop stijl</h2></div>
       <div class="cards three">
-        <article class="card"><div class="icon">💰</div><h3>Economy</h3><p>Verdien geld met shops, auctions, crates, spawners en handel met andere spelers.</p></article>
-        <article class="card"><div class="icon">🎁</div><h3>Crates</h3><p>Open exclusieve crates en win keys, items, money, ranks en speciale rewards.</p></article>
-        <article class="card"><div class="icon">🌍</div><h3>Crossplay</h3><p>Speel samen met Java en Bedrock spelers via één server community.</p></article>
+        <article class="card product-card"><div class="icon">👑</div><h3>Ranks</h3><p>VIP, Elite en Legend met mooie prefixes, kits en extra voordelen.</p><a href="ranks.html">Bekijk ranks →</a></article>
+        <article class="card product-card"><div class="icon">🎁</div><h3>Crates</h3><p>Common, Gold en Prime keys met premium rewards voor jouw avontuur.</p><a href="crates.html">Bekijk crates →</a></article>
+        <article class="card product-card"><div class="icon">💰</div><h3>Economy</h3><p>Shops, auctions, spawners, RTP en money rewards voor echte grinders.</p><a href="features.html">Bekijk features →</a></article>
       </div>
     </section>
 
-    <section class="container section split">
-      <div>
-        <p class="eyebrow">Ranks</p>
-        <h2>Upgrade je avontuur</h2>
-        <p>VIP, Elite en Legend geven je extra voordelen, betere kits en meer mogelijkheden binnen DynathiSMP.</p>
-        <a class="btn primary" href="ranks.html">Bekijk ranks</a>
-      </div>
-      <div class="rank-preview">
-        <div class="rank mini vip">VIP</div>
-        <div class="rank mini elite">ELITE</div>
-        <div class="rank mini legend">LEGEND</div>
-      </div>
-    </section>
-
-    <section class="cta">
-      <div class="container cta-box">
-        <h2>Klaar om te joinen?</h2>
-        <p>Kopieer het IP en start vandaag nog jouw DynathiSMP avontuur.</p>
-        <button class="btn primary copy-btn" data-copy="play.dynathismp.nl">Kopieer play.dynathismp.nl</button>
-      </div>
+    <section class="container section shop-strip">
+      <div><p class="eyebrow">DynathiSMP</p><h2>Van spawn naar miljonair</h2><p>Begin survival, claim je base, verkoop items, open crates en upgrade jouw rank via de officiële webshop.</p></div>
+      <a class="btn primary" href="https://dynathismp-snowy.vercel.app/">Koop ranks & keys</a>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer-grid">
-      <p>© 2026 DynathiSMP. Niet verbonden aan Mojang of Microsoft.</p>
-      <div><a href="rules.html">Rules</a><a href="https://dynathismp-snowy.vercel.app/">Webshop</a></div>
-    </div>
-  </footer>
+  <footer class="footer"><div class="container footer-grid"><p>© 2026 DynathiSMP. Niet verbonden aan Mojang of Microsoft.</p><div><a href="rules.html">Rules</a><a href="https://dynathismp-snowy.vercel.app/">Webshop</a></div></div></footer>
   <script src="assets/app.js"></script>
 </body>
 </html>
