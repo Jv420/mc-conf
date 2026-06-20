@@ -1,0 +1,37 @@
+# DynathiGA4Analytics
+# Gebruik GA4 Measurement Protocol.
+# GA4: Admin -> Data Streams -> kies je Web stream -> Measurement Protocol -> Create API Secret
+
+enabled: false
+
+# Voorbeeld: G-XXXXXXXXXX
+measurement-id: "G-XXXXXXXXXX"
+
+# Houd deze geheim. Zet deze repo niet openbaar met je echte secret erin.
+api-secret: "PASTE_YOUR_API_SECRET_HERE"
+
+# EU endpoint is netter voor Nederland/EU.
+use-eu-endpoint: true
+
+# Vaste client_id voor server events. Laat zo staan of verander naar eigen servernaam.
+client-id: "dynathismp-server"
+
+# Zet GEEN speler-IP of persoonlijke data naar Google Analytics.
+privacy:
+  hash-player-uuid: true
+  send-player-name: false
+  send-world-name: true
+
+tracking:
+  server-start: true
+  server-stop: true
+  player-join: true
+  player-quit: true
+  player-death: true
+  player-command: false
+  player-chat: false
+  online-count-task: true
+  online-count-minutes: 5
+
+# Debug stuurt extra logs naar console.
+debug: false
