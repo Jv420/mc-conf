@@ -33,5 +33,14 @@ tracking:
   player-chat: false
   online-count-task: true
   online-count-minutes: 5
+  webshop-open: true
+  webshop-command: "webshop"
+  webshop-sales: true
+
+webshop:
+  name: "DynathiSMP Webshop"
+  url: "https://dynathismp-snowy.vercel.app"
+  currency: "EUR"
+  default-payment-provider: "stripe"
 
 debug: false
